@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+
+  <style>
+    .result {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1em;
+    }
+
+    .card {
+      font-size: .8em;
+      position: relative;
+    }
+
+    .save-btn {
+      position: absolute;
+      right:-25px;
+      top: -25px;
+    }
+
+
+    .save-btn > h5 {
+      position: absolute;
+      right:10px;
+      top: 50px;
+      font: 0.5em;
+      background: black;
+      font-weight: bolder;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-1">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link " href="/movies">Search</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/movies/saved">Saved Movies</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container mt-3">
+    <form action="/movies" method="POST">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search Movie" name="movie" required>
+        <div class="input-group-prepend">
+          <button type="submit" class="btn btn-primary" id="search">GO</button>
+        </div>
+      </div>
+      <small id="searchHelp" class="form-text text-muted">Add some initials of movie to search</small>
+    </form>  
+  </div>
+  
+  <div class="container mt-5">
+    <div class="result">
+        {{#each movies}}
+          <div class="card mt-5 mr-4" style="width: 15em;">
+            <img src="{{this.posterURL}}" class="card-img-top" alt="posterurl">
+            <div class="card-body">
+              <h5 class="card-title">{{this.title}}</h5>
+              <p class="card-text">{{this.overview}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Language: {{this.language}}</li>
+              <li class="list-group-item">Rating: {{this.rating}}</li>
+              <li class="list-group-item">Release Date: {{this.release_date}}</li>
+              <li class="list-group-item">Movie ID: {{this.id}}</li>
+              <li class="list-group-item">Genres: {{this.genre_ids}}</li>
+            </ul>
+            <div class="card-body">
+              <a href="{{this.backdropURL}}" class="backimg-link">More Image</a>
+            </div>
+            <div class="save-btn">
+              <img src="images/save.svg" alt="save movie" width="50" aria-placeholder="save">
+              <h5>save</h5>
+              {{!-- <small id="imageHelp" class="form-text text-muted">save</small> --}}
+            </div>
+          </div>
+        {{/each}}
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
